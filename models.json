@@ -1,0 +1,74 @@
+[
+    {
+        "name": "ChatGPT",
+        "description": "Large language model by OpenAI capable of natural conversations and various tasks",
+        "website": "https://chat.openai.com",
+        "company": "OpenAI",
+        "category": ["Language Model", "Chatbot"],
+        "features": ["Text Generation", "Conversation", "Code Generation"],
+        "pricing": "Freemium"
+    },
+    {
+        "name": "DALL-E 3",
+        "description": "Advanced text-to-image generation model",
+        "website": "https://openai.com/dall-e-3",
+        "company": "OpenAI",
+        "category": ["Image Generation"],
+        "features": ["Text to Image", "Image Editing"],
+        "pricing": "Paid"
+    },
+    {
+        "name": "Claude",
+        "description": "Advanced AI assistant capable of complex analysis and tasks",
+        "website": "https://anthropic.com/claude",
+        "company": "Anthropic",
+        "category": ["Language Model", "Chatbot"],
+        "features": ["Text Generation", "Analysis", "Research"],
+        "pricing": "Freemium"
+    },
+    {
+        "name": "Midjourney",
+        "description": "AI art generation tool known for high-quality artistic images",
+        "website": "https://www.midjourney.com",
+        "company": "Midjourney",
+        "category": ["Image Generation"],
+        "features": ["Text to Image", "Art Generation", "Style Transfer"],
+        "pricing": "Paid"
+    },
+    {
+        "name": "Stable Diffusion",
+        "description": "Open-source image generation model with various implementations",
+        "website": "https://stability.ai",
+        "company": "Stability AI",
+        "category": ["Image Generation"],
+        "features": ["Text to Image", "Image Editing", "Image to Image"],
+        "pricing": "Free/Paid"
+    },
+    {
+        "name": "Gemini",
+        "description": "Google's multimodal AI model capable of understanding text, images, and code",
+        "website": "https://deepmind.google/technologies/gemini/",
+        "company": "Google",
+        "category": ["Language Model", "Multimodal"],
+        "features": ["Text Generation", "Image Understanding", "Code Generation"],
+        "pricing": "Freemium"
+    },
+    {
+        "name": "GPT-4",
+        "description": "Advanced language model with improved reasoning and creativity",
+        "website": "https://openai.com/gpt-4",
+        "company": "OpenAI",
+        "category": ["Language Model"],
+        "features": ["Text Generation", "Analysis", "Problem Solving"],
+        "pricing": "Paid"
+    },
+    {
+        "name": "Llama 2",
+        "description": "Open-source large language model by Meta",
+        "website": "https://ai.meta.com/llama/",
+        "company": "Meta",
+        "category": ["Language Model"],
+        "features": ["Text Generation", "Open Source"],
+        "pricing": "Free"
+    }
+]
