@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Allow: /sitemap.xml
+
+Sitemap: https://raosalman504.github.io/aimodelsdirectory/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 10
+
+# Disallow specific paths
+Disallow: /api/
+Disallow: /*.json$

@@ -10,25 +10,45 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Fetch all history
     
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.12'
+        cache: 'pip'  # Enable pip caching
     
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install frozen-flask
-    
+      
     - name: Build static site
+      id: build
+      continue-on-error: true  # Continue even if build fails
       run: |
         python build.py
+        
+    - name: Check build status
+      if: steps.build.outcome == 'failure'
+      run: |
+        echo "Build failed. Check logs for details."
+        exit 1  # Fail the workflow if build fails
     
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./build
+        commit_message: "Deploy to GitHub Pages [automated]"
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        full_commit_message: |
+          Deploy to GitHub Pages [automated]
+          
+          Triggered by ${{ github.event_name }} event
+          Commit: ${{ github.sha }}

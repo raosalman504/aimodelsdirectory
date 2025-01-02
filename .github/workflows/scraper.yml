@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0  # Fetch all history for proper git operations
         
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -23,14 +25,29 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        
+      
     - name: Run scraper
+      id: scraper
+      continue-on-error: true  # Continue even if scraper fails
       run: |
         python -c "from scrapers.ai_models_scraper import run_spider; run_spider()"
         
-    - name: Commit and push if changes
+    - name: Check for changes
+      id: git-check
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git status --porcelain models.json | grep -q "models.json" && echo "::set-output name=changed::true" || echo "::set-output name=changed::false"
+        
+    - name: Commit and push if changes exist
+      if: steps.git-check.outputs.changed == 'true'
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
         git add models.json
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update AI models data [automated]" && git push)
+        git commit -m "Update AI models data [automated]"
+        git push
+        
+    - name: Check scraper status
+      if: steps.scraper.outcome == 'failure'
+      run: |
+        echo "Scraper failed but workflow continued. Check logs for details."
+        exit 0  # Don't fail the workflow

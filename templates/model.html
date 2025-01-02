@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="model-detail-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ model.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="model-header">
+        <h1>{{ model.name }}</h1>
+        <span class="badge bg-primary">{{ model.source }}</span>
+        {% for category in model.category %}
+            <span class="badge bg-secondary">{{ category }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="model-content">
+        <div class="description">
+            <h2>Description</h2>
+            <p>{{ model.description }}</p>
+        </div>
+
+        <div class="details">
+            <h2>Details</h2>
+            <ul>
+                <li><strong>Company:</strong> {{ model.company }}</li>
+                <li><strong>Pricing:</strong> {{ model.pricing }}</li>
+                <li><strong>Last Updated:</strong> {{ model.last_updated }}</li>
+            </ul>
+        </div>
+
+        {% if model.features %}
+        <div class="features">
+            <h2>Features</h2>
+            <ul>
+                {% for feature in model.features %}
+                    <li>{{ feature }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="actions">
+            <a href="{{ model.website }}" class="btn btn-primary" target="_blank">Visit Website</a>
+            <a href="/" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

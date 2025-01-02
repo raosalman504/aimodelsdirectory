@@ -1,0 +1,144 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Navigation */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Cards */
+.card {
+    transition: transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Model Details */
+.model-header {
+    margin-bottom: 2rem;
+}
+
+.model-header h1 {
+    margin-bottom: 1rem;
+}
+
+.badge {
+    margin-right: 0.5rem;
+}
+
+.model-content {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.model-content h2 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.features ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.features li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.features li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #007bff;
+}
+
+/* Error Pages */
+.error-container {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.error-container h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+/* Search and Filters */
+.search-container {
+    margin-bottom: 2rem;
+}
+
+.filter-container {
+    margin-bottom: 1.5rem;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 2rem;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+.social-links a {
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.social-links a:hover {
+    opacity: 0.8;
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .model-content {
+        padding: 1rem;
+    }
+    
+    .error-container h1 {
+        font-size: 3rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .footer,
+    .search-container,
+    .filter-container {
+        display: none;
+    }
+    
+    .card {
+        break-inside: avoid;
+    }
+}
