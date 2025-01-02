@@ -24,37 +24,63 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip list  # List installed packages for debugging
+
+    - name: Check directory structure
+      run: |
+        pwd
+        ls -la
+        echo "Current directory contents:"
+        find . -type f -name "*.py" -o -name "*.json"
 
     - name: Create data directory if not exists
       run: |
         mkdir -p data
+        ls -la data
 
-    - name: Run scraper
+    - name: Debug Python imports
       run: |
-        python -c "from scrapers.ai_models_scraper import run_spider; run_spider()"
+        echo "Python path:"
+        python -c "import sys; print('\n'.join(sys.path))"
+        echo "Checking for scrapers module:"
+        python -c "import scrapers; print('Scrapers module found')" || echo "Scrapers module not found"
 
-    - name: Check if models.json exists and has content
-      id: check_models
+    - name: Run scraper with debug output
       run: |
-        if [ -f "models.json" ] && [ -s "models.json" ]; then
-          echo "Models file exists and has content"
-          echo "has_models=true" >> $GITHUB_OUTPUT
+        export PYTHONPATH=$PYTHONPATH:$(pwd)
+        python -c "
+        import sys
+        import os
+        print('Current working directory:', os.getcwd())
+        print('Python path:', sys.path)
+        print('Directory contents:', os.listdir())
+        from scrapers.ai_models_scraper import run_spider
+        run_spider()
+        "
+
+    - name: Check scraper output
+      run: |
+        echo "Checking models.json:"
+        if [ -f "models.json" ]; then
+          echo "models.json exists"
+          ls -l models.json
+          echo "First 100 lines of models.json:"
+          head -n 100 models.json
         else
-          echo "Models file is missing or empty"
-          echo "has_models=false" >> $GITHUB_OUTPUT
+          echo "models.json not found"
           exit 1
         fi
 
     - name: Configure Git
-      if: steps.check_models.outputs.has_models == 'true'
+      if: success()
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
 
     - name: Commit and push if changes
-      if: steps.check_models.outputs.has_models == 'true'
+      if: success()
       run: |
         git add models.json
         timestamp=$(date -u)
-        git commit -m "Update models: ${timestamp}" || exit 0
-        git push
+        git commit -m "Update models: ${timestamp}" || echo "No changes to commit"
+        git push || echo "No changes to push"
